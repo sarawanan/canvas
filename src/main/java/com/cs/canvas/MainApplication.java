@@ -6,11 +6,11 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class MainApplication {
-    private char[][] charArray;
-    private char[][] fillArray;
-    boolean canvasInitiated = false;
-    int width;
-    int height;
+    protected char[][] charArray;
+    protected char[][] fillArray;
+    protected boolean canvasInitiated = false;
+    protected int width;
+    protected int height;
 
     //Application entry point
     public static void main(String[] args) {
