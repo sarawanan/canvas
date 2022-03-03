@@ -1,4 +1,4 @@
-    package com.cs.canvas;
+package com.cs.canvas;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,50 +6,57 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class MainApplication {
-    private String command;
-    private List<String> params;
     private char[][] charArray;
     boolean canvasInitiated = false;
 
     //Application entry point
     public static void main(String[] args) {
-        new MainApplication().readCommand();
+        new MainApplication().start();
     }
 
-    private void readCommand() {
+    private void start() {
         try (Scanner scanner = new Scanner(System.in)) {
             do {
-                //TODO implement clear console function here
                 System.out.print("Enter Command : ");
-                try {
-                    //Take the input
-                    String input = scanner.nextLine();
-
-                    //Validate if input is blank
-                    if (input.isBlank() || input.isEmpty()) {
-                        throw new InvalidCommandException("Please enter valid command");
-                    }
-
-                    //Split the input for command & params
-                    String[] array = input.split(" ");
-                    command = array[0].toUpperCase();
-                    params = Arrays.asList(array).subList(1, array.length);
-
-                    //Validate the command
-                    if (!Pattern.matches("[BCLRQbclrq]", command)) {
-                        throw new InvalidCommandException("Only the following ['B','C','L','R','Q'] commands are valid!");
-                    }
-
-                    handleCommand();
-                } catch (InvalidCommandException e) {
-                    e.printStackTrace();
-                }
-
+                String input = scanner.nextLine();
+                String command = extractCommand(input);
+                List<String> params = extractParams(input);
+                process(command, params);
             } while (true);
+        } catch (InvalidCommandException e) {
+            e.printStackTrace();
         }
     }
 
-    private void handleCommand() throws InvalidCommandException {
+    public String extractCommand(String input) throws InvalidCommandException {
+        //Validate if input is blank
+        if (input.isBlank() || input.isEmpty()) {
+            throw new InvalidCommandException("Please enter valid command");
+        }
+
+        //Split the input for command & params
+        String[] array = input.split(" ");
+        String command = array[0].toUpperCase();
+
+        //Validate the command
+        if (!Pattern.matches("[BCLRQbclrq]", command)) {
+            throw new InvalidCommandException("Only the following ['B','C','L','R','Q'] commands are valid!");
+        }
+        return command;
+    }
+
+    public List<String> extractParams(String input) throws InvalidCommandException {
+        //Validate if input is blank
+        if (input.isBlank() || input.isEmpty()) {
+            throw new InvalidCommandException("Please enter valid command");
+        }
+
+        //Split the input for command & params
+        String[] array = input.split(" ");
+        return Arrays.asList(array).subList(1, array.length);
+    }
+
+    public void process(String command, List<String> params) throws InvalidCommandException {
         switch (command) {
             case "B" -> {
                 new Fill().draw(charArray, params);
