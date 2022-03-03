@@ -78,7 +78,7 @@ public class MainApplication {
                 System.out.println(getCharArrayAsString());
             }
             case "L" -> {
-                new Line().draw(charArray, params, height, width);
+                new Line().draw(charArray, params);
                 System.out.println(getCharArrayAsString());
             }
             case "R" -> {
