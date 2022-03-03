@@ -13,22 +13,29 @@ public class Line {
         }
     }
 
-    public void draw(char[][] charArray, List<String> params) throws InvalidCommandException {
+    public void draw(char[][] charArray, List<String> params, int w, int h) throws InvalidCommandException {
         validate(params);
 
-        int x1 = Integer.parseInt(params.get(0));
-        int y1 = Integer.parseInt(params.get(1));
-        int x2 = Integer.parseInt(params.get(2));
-        int y2 = Integer.parseInt(params.get(3));
+        int c1 = Integer.parseInt(params.get(0));
+        int r1 = Integer.parseInt(params.get(1));
+        int c2 = Integer.parseInt(params.get(2));
+        int r2 = Integer.parseInt(params.get(3));
 
-        if (y1 == y2) {
-            for (int i = x1; i < x2 + 1; i++) {
-                charArray[y1][i] = 'x';
+        if (c1 < 1 || c1 > w-2 || c2 < 1 || c2 > w-2) {
+            throw new InvalidCommandException("Co-ordinates out of bound");
+        }
+        if (r1 < 1 || r1 > h || r2 < 1 || r2 > h) {
+            throw new InvalidCommandException("Co-ordinates out of bound");
+        }
+
+        if (r1 == r2) {
+            for (int i = c1; i < c2 + 1; i++) {
+                charArray[r1][i] = 'x';
             }
         }
-        if (x1 == x2) {
-            for (int i = y1; i < y2 + 1; i++) {
-                charArray[i][x1] = 'x';
+        if (c1 == c2) {
+            for (int i = r1; i < r2 + 1; i++) {
+                charArray[i][c1] = 'x';
             }
         }
     }

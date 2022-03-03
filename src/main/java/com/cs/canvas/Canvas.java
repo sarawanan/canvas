@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Canvas {
-    public void draw(char[][] charArray, int x, int y) {
-        for (int i = 0; i < y + 2; i++) {
-            for (int j = 0; j < x; j++) {
-                if ((i == 0) || (i == y + 1)) {
-                    charArray[i][j] = '-';
+    public void draw(char[][] charArray, int width, int height) {
+        for (int r = 0; r < height + 2; r++) {
+            for (int c = 0; c < width; c++) {
+                if ((r == 0) || (r == height + 1)) {
+                    charArray[r][c] = '-';
                 } else {
-                    charArray[i][0] = '|';
-                    charArray[i][x - 1] = '|';
+                    charArray[r][0] = '|';
+                    charArray[r][width - 1] = '|';
                 }
             }
         }

@@ -16,12 +16,22 @@ public class Fill {
     public void draw(char[][] charArray, List<String> params, int height, int width, char[][] fillArray) throws InvalidCommandException {
         validate(params);
 
+        int c1 = Integer.parseInt(params.get(0));
+        int r1 = Integer.parseInt(params.get(1));
+
+        if (c1 < 1 || c1 > width - 2) {
+            throw new InvalidCommandException("Co-ordinates out of bound");
+        }
+        if (r1 < 1 || r1 > height) {
+            throw new InvalidCommandException("Co-ordinates out of bound");
+        }
+
         char fill = params.get(2).charAt(0);
-        for (int i = 1; i < height + 1; i++) {
-            for (int j = 1; j < width - 1; j++) {
-                if (charArray[i][j] != 'x') {
-                    if (fillArray[i][j] != '#') {
-                        charArray[i][j] = fill;
+        for (int r = 1; r < height + 1; r++) {
+            for (int c = 1; c < width - 1; c++) {
+                if (charArray[r][c] != 'x') {
+                    if (fillArray[r][c] != '#') {
+                        charArray[r][c] = fill;
                     }
                 }
             }

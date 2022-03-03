@@ -62,34 +62,4 @@ public class TestMainApplication {
         List<String> params = mainApplication.extractParams("C 20 4");
         mainApplication.process("C", params);
     }
-
-    @Test
-    public void testProcessWithLine1Command() throws InvalidCommandException {
-        List<String> params = mainApplication.extractParams("L 1 2 6 2");
-        mainApplication.charArray = new char[6][20];
-        mainApplication.process("L", params);
-    }
-
-    @Test
-    public void testProcessWithLine2Command() throws InvalidCommandException {
-        List<String> params = mainApplication.extractParams("L 6 3 6 4");
-        mainApplication.charArray = new char[6][20];
-        mainApplication.process("L", params);
-    }
-
-    @Test
-    public void testProcessWithRectangleCommand() throws InvalidCommandException {
-        List<String> params = mainApplication.extractParams("R 14 1 18 3");
-        mainApplication.charArray = new char[6][20];
-        mainApplication.fillArray = new char[6][20];
-        mainApplication.process("R", params);
-    }
-
-    @Test
-    public void testProcessWithFillCommand() throws InvalidCommandException {
-        List<String> params = mainApplication.extractParams("B 10 3 c");
-        mainApplication.charArray = new char[6][20];
-        mainApplication.fillArray = new char[6][20];
-        mainApplication.process("B", params);
-    }
 }
