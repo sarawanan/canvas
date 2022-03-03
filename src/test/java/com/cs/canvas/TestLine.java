@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestLine {
     private Line line = null;
-    private MainApplication application = null;
+    private MainApplication mainApplication = null;
 
     @BeforeAll
     public void setUp() {
-        application = new MainApplication();
+        mainApplication = new MainApplication();
         line = new Line();
     }
 
     @Test()
     public void testIfLineIsHaving4Params() throws InvalidCommandException {
-        List<String> params = application.extractParams("L");
+        List<String> params = mainApplication.extractParams("L");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> line.validate(params)
@@ -31,7 +31,7 @@ public class TestLine {
 
     @Test()
     public void testIfLineParamsAreNumbers() throws InvalidCommandException {
-        List<String> params = application.extractParams("L 1 2 6 A");
+        List<String> params = mainApplication.extractParams("L 1 2 6 A");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> line.validate(params)
@@ -42,7 +42,7 @@ public class TestLine {
     @Test
     public void testLineDraw() throws InvalidCommandException {
         char[][] charArray = new char[6][20];
-        List<String> params = application.extractParams("L 1 2 6 2");
+        List<String> params = mainApplication.extractParams("L 1 2 6 2");
         line.draw(charArray, params);
         assertEquals(charArray[2][1], 'x');
         assertEquals(charArray[2][6], 'x');

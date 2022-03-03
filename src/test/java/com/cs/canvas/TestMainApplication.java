@@ -11,18 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestMainApplication {
-    private MainApplication application = null;
+    private MainApplication mainApplication = null;
 
     @BeforeAll
     public void setUp() {
-        application = new MainApplication();
+        mainApplication = new MainApplication();
     }
 
     @Test()
     public void testIfInputIsBlank() {
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> application.extractCommand("")
+                () -> mainApplication.extractCommand("")
         );
         assertEquals("Please enter valid command", thrown.getMessage());
     }
@@ -31,14 +31,14 @@ public class TestMainApplication {
     public void testInvalidCommand() {
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> application.extractCommand("X")
+                () -> mainApplication.extractCommand("X")
         );
         assertEquals("Only the following ['B','C','L','R','Q'] commands are valid!", thrown.getMessage());
     }
 
     @Test()
     public void testValidCommand() throws InvalidCommandException {
-        String command = application.extractCommand("C 20 4");
+        String command = mainApplication.extractCommand("C 20 4");
         assertEquals("C", command);
     }
 
@@ -46,50 +46,50 @@ public class TestMainApplication {
     public void testValidParams() throws InvalidCommandException {
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> application.extractParams("")
+                () -> mainApplication.extractParams("")
         );
         assertEquals("Please enter valid command", thrown.getMessage());
     }
 
     @Test
     public void testParamsWithEmptyInput() throws InvalidCommandException {
-        List<String> params = application.extractParams("C 20 4");
+        List<String> params = mainApplication.extractParams("C 20 4");
         assertEquals(2, params.size());
     }
 
     @Test
     public void testProcessWithCanvasCommand() throws InvalidCommandException {
-        List<String> params = application.extractParams("C 20 4");
-        application.process("C", params);
+        List<String> params = mainApplication.extractParams("C 20 4");
+        mainApplication.process("C", params);
     }
 
     @Test
     public void testProcessWithLine1Command() throws InvalidCommandException {
-        List<String> params = application.extractParams("L 1 2 6 2");
-        application.charArray = new char[6][20];
-        application.process("L", params);
+        List<String> params = mainApplication.extractParams("L 1 2 6 2");
+        mainApplication.charArray = new char[6][20];
+        mainApplication.process("L", params);
     }
 
     @Test
     public void testProcessWithLine2Command() throws InvalidCommandException {
-        List<String> params = application.extractParams("L 6 3 6 4");
-        application.charArray = new char[6][20];
-        application.process("L", params);
+        List<String> params = mainApplication.extractParams("L 6 3 6 4");
+        mainApplication.charArray = new char[6][20];
+        mainApplication.process("L", params);
     }
 
     @Test
     public void testProcessWithRectangleCommand() throws InvalidCommandException {
-        List<String> params = application.extractParams("R 14 1 18 3");
-        application.charArray = new char[6][20];
-        application.fillArray = new char[6][20];
-        application.process("R", params);
+        List<String> params = mainApplication.extractParams("R 14 1 18 3");
+        mainApplication.charArray = new char[6][20];
+        mainApplication.fillArray = new char[6][20];
+        mainApplication.process("R", params);
     }
 
     @Test
     public void testProcessWithFillCommand() throws InvalidCommandException {
-        List<String> params = application.extractParams("B 10 3 c");
-        application.charArray = new char[6][20];
-        application.fillArray = new char[6][20];
-        application.process("B", params);
+        List<String> params = mainApplication.extractParams("B 10 3 c");
+        mainApplication.charArray = new char[6][20];
+        mainApplication.fillArray = new char[6][20];
+        mainApplication.process("B", params);
     }
 }

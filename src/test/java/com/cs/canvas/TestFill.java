@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestFill {
     private Fill fill = null;
-    private MainApplication application = null;
+    private MainApplication mainApplication = null;
 
     @BeforeAll
     public void setUp() {
-        application = new MainApplication();
+        mainApplication = new MainApplication();
         fill = new Fill();
     }
 
     @Test()
     public void testIfFillIsHaving3Params() throws InvalidCommandException {
-        List<String> params = application.extractParams("B");
+        List<String> params = mainApplication.extractParams("B");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> fill.validate(params)
@@ -31,7 +31,7 @@ public class TestFill {
 
     @Test()
     public void testIfFillParamsHave2Numbers() throws InvalidCommandException {
-        List<String> params = application.extractParams("B 10 E c");
+        List<String> params = mainApplication.extractParams("B 10 E c");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> fill.validate(params)
@@ -41,7 +41,7 @@ public class TestFill {
 
     @Test()
     public void testIfFillParamsHave1Char() throws InvalidCommandException {
-        List<String> params = application.extractParams("B 10 3 cc");
+        List<String> params = mainApplication.extractParams("B 10 3 cc");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> fill.validate(params)
@@ -53,7 +53,7 @@ public class TestFill {
     public void testFillDraw() throws InvalidCommandException {
         char[][] charArray = new char[6][20];
         char[][] fillArray = new char[6][20];
-        List<String> params = application.extractParams("B 10 3 $");
+        List<String> params = mainApplication.extractParams("B 10 3 $");
         fill.draw(charArray, params, 4, 20, fillArray);
         assertEquals(charArray[2][2], '$');
     }

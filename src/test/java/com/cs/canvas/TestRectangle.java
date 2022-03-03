@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestRectangle {
     private Rectangle rectangle = null;
-    private MainApplication application = null;
+    private MainApplication mainApplication = null;
 
     @BeforeAll
     public void setUp() {
-        application = new MainApplication();
+        mainApplication = new MainApplication();
         rectangle = new Rectangle();
     }
 
     @Test()
     public void testIfRectangleIsHaving4Params() throws InvalidCommandException {
-        List<String> params = application.extractParams("R");
+        List<String> params = mainApplication.extractParams("R");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> rectangle.validate(params)
@@ -32,7 +32,7 @@ public class TestRectangle {
 
     @Test()
     public void testIfRectangleParamsAreNumbers() throws InvalidCommandException {
-        List<String> params = application.extractParams("R 14 1 18 A");
+        List<String> params = mainApplication.extractParams("R 14 1 18 A");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> rectangle.validate(params)
@@ -44,7 +44,7 @@ public class TestRectangle {
     public void testRectangleDraw() throws InvalidCommandException {
         char[][] charArray = new char[6][20];
         char[][] fillArray = new char[6][20];
-        List<String> params = application.extractParams("R 14 1 18 3");
+        List<String> params = mainApplication.extractParams("R 14 1 18 3");
         rectangle.draw(charArray, params, fillArray);
         assertEquals(charArray[1][13], 'x');
         assertEquals(charArray[3][17], 'x');
