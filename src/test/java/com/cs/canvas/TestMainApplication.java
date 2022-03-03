@@ -6,7 +6,8 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestMainApplication {
@@ -23,7 +24,7 @@ public class TestMainApplication {
                 InvalidCommandException.class,
                 () -> application.extractCommand("")
         );
-        assertTrue(thrown.getMessage().contains("Please enter valid command"));
+        assertEquals("Please enter valid command", thrown.getMessage());
     }
 
     @Test()
@@ -32,7 +33,7 @@ public class TestMainApplication {
                 InvalidCommandException.class,
                 () -> application.extractCommand("X")
         );
-        assertTrue(thrown.getMessage().contains("Only the following ['B','C','L','R','Q'] commands are valid!"));
+        assertEquals("Only the following ['B','C','L','R','Q'] commands are valid!", thrown.getMessage());
     }
 
     @Test()
