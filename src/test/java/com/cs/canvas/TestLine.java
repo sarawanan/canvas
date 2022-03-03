@@ -43,7 +43,7 @@ public class TestLine {
     public void testLineDraw() throws InvalidCommandException {
         char[][] charArray = new char[6][20];
         List<String> params = application.extractParams("L 1 2 6 2");
-        line.draw(charArray, params);
+        line.draw(charArray, params, 20, 4);
         assertEquals(charArray[2][1], 'x');
         assertEquals(charArray[2][6], 'x');
     }

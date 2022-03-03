@@ -13,13 +13,18 @@ public class Line {
         }
     }
 
-    public void draw(char[][] charArray, List<String> params) throws InvalidCommandException {
+    public void draw(char[][] charArray, List<String> params, int height, int width) throws InvalidCommandException {
         validate(params);
 
         int x1 = Integer.parseInt(params.get(0));
         int y1 = Integer.parseInt(params.get(1));
         int x2 = Integer.parseInt(params.get(2));
         int y2 = Integer.parseInt(params.get(3));
+
+        if (x1 <= 0 || x1 >= height || y1 <= 0 || y1 >= width ||
+                x2 <= 0 || x2 >= width || y2 <= 0 || y2 >= height) {
+            throw new InvalidCommandException("Line co-ordinates are out of bound");
+        }
 
         if (y1 == y2) {
             for (int i = x1; i < x2 + 1; i++) {

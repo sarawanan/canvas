@@ -22,12 +22,14 @@ public class MainApplication {
             do {
                 System.out.print("Enter Command : ");
                 String input = scanner.nextLine();
-                String command = extractCommand(input);
-                List<String> params = extractParams(input);
-                process(command, params);
+                try {
+                    String command = extractCommand(input);
+                    List<String> params = extractParams(input);
+                    process(command, params);
+                } catch (InvalidCommandException e) {
+                    e.printStackTrace();
+                }
             } while (true);
-        } catch (InvalidCommandException e) {
-            e.printStackTrace();
         }
     }
 
@@ -76,7 +78,7 @@ public class MainApplication {
                 System.out.println(getCharArrayAsString());
             }
             case "L" -> {
-                new Line().draw(charArray, params);
+                new Line().draw(charArray, params, height, width);
                 System.out.println(getCharArrayAsString());
             }
             case "R" -> {

@@ -46,7 +46,7 @@ public class TestCanvas {
     }
 
     @Test
-    public void testCanvasDraw() throws InvalidCommandException {
+    public void testCanvasDraw() {
         char[][] charArray = new char[6][20];
         canvas.draw(charArray, 20, 4);
         assertEquals(charArray[0][0], '-');
