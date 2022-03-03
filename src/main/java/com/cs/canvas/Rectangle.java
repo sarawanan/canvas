@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Rectangle {
-    public void draw(char[][] charArray, List<String> params) throws InvalidCommandException {
+    public void draw(char[][] charArray, List<String> params, char[][] fillArray) throws InvalidCommandException {
         validate(params);
 
         int x1 = Integer.parseInt(params.get(0));
@@ -16,9 +16,10 @@ public class Rectangle {
             for (int j = x1 - 1; j < x2; j++) {
                 if ((i == y1) || (i == y2)) {
                     charArray[i][j] = 'x';
+                } else if (j == x1 - 1 || j == x2 - 1) {
+                    charArray[i][j] = 'x';
                 } else {
-                    charArray[i][x1 - 1] = 'x';
-                    charArray[i][x2 - 1] = 'x';
+                    fillArray[i][j] = '#';
                 }
             }
         }

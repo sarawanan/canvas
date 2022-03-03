@@ -13,7 +13,20 @@ public class Fill {
         }
     }
 
-    public void draw(char[][] charArray, List<String> params) throws InvalidCommandException {
+    public void draw(char[][] charArray, List<String> params, int height, int width, char[][] fillArray) throws InvalidCommandException {
         validate(params);
+        int x = Integer.parseInt(params.get(0));
+        int y = Integer.parseInt(params.get(1));
+
+        char fill = params.get(2).charAt(0);
+        for (int i = 1; i < height + 1; i++) {
+            for (int j = 1; j < width - 1; j++) {
+                if (charArray[i][j] != 'x') {
+                    if (fillArray[i][j] != '#') {
+                        charArray[i][j] = fill;
+                    }
+                }
+            }
+        }
     }
 }

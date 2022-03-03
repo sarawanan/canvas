@@ -1,5 +1,6 @@
 package com.cs.canvas;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -7,7 +8,10 @@ import java.util.regex.Pattern;
 
 public class MainApplication {
     private char[][] charArray;
+    private char[][] fillArray;
     boolean canvasInitiated = false;
+    int width;
+    int height;
 
     //Application entry point
     public static void main(String[] args) {
@@ -59,16 +63,17 @@ public class MainApplication {
     public void process(String command, List<String> params) throws InvalidCommandException {
         switch (command) {
             case "B" -> {
-                new Fill().draw(charArray, params);
+                new Fill().draw(charArray, params, height, width, fillArray);
                 System.out.println(getCharArrayAsString());
             }
             case "C" -> {
                 Canvas canvas = new Canvas();
                 canvasInitiated = canvas.validate(params);
-                int x = Integer.parseInt(params.get(0));
-                int y = Integer.parseInt(params.get(1));
-                charArray = new char[y + 2][x];
-                canvas.draw(charArray, x, y);
+                width = Integer.parseInt(params.get(0));
+                height = Integer.parseInt(params.get(1));
+                charArray = new char[height + 2][width];
+                fillArray = new char[height + 2][width];
+                canvas.draw(charArray, width, height);
                 System.out.println(getCharArrayAsString());
             }
             case "L" -> {
@@ -76,7 +81,7 @@ public class MainApplication {
                 System.out.println(getCharArrayAsString());
             }
             case "R" -> {
-                new Rectangle().draw(charArray, params);
+                new Rectangle().draw(charArray, params, fillArray);
                 System.out.println(getCharArrayAsString());
             }
             case "Q" -> {
