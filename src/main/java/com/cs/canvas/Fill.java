@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Fill {
-    private void validate(List<String> params) throws InvalidCommandException {
+    void validate(List<String> params) throws InvalidCommandException {
         Pattern digits = Pattern.compile("\\d+");
         if (params.size() != 3 || !digits.matcher(params.get(0)).matches()
                 || !digits.matcher(params.get(1)).matches()
@@ -15,8 +15,6 @@ public class Fill {
 
     public void draw(char[][] charArray, List<String> params, int height, int width, char[][] fillArray) throws InvalidCommandException {
         validate(params);
-        int x = Integer.parseInt(params.get(0));
-        int y = Integer.parseInt(params.get(1));
 
         char fill = params.get(2).charAt(0);
         for (int i = 1; i < height + 1; i++) {
