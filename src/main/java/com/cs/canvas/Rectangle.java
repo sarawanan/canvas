@@ -25,7 +25,7 @@ public class Rectangle {
         }
     }
 
-    private void validate(List<String> params) throws InvalidCommandException {
+    void validate(List<String> params) throws InvalidCommandException {
         Pattern digits = Pattern.compile("\\d+");
         if (params.size() != 4 || !digits.matcher(params.get(0)).matches()
                 || !digits.matcher(params.get(1)).matches() || !digits.matcher(params.get(2)).matches()
