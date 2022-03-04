@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Rectangle {
-    public void draw(char[][] charArray, List<String> params, char[][] fillArray, int w, int h) throws InvalidCommandException {
+    public void draw(List<String> params,
+                     char[][] charArray,
+                     int width,
+                     int height,
+                     char[][] fillArray) throws InvalidCommandException {
         validate(params);
 
         int c1 = Integer.parseInt(params.get(0));
@@ -12,10 +16,10 @@ public class Rectangle {
         int c2 = Integer.parseInt(params.get(2));
         int r2 = Integer.parseInt(params.get(3));
 
-        if (c1 < 1 || c1 > w-2 || c2 < 1 || c2 > w-2) {
+        if (c1 < 1 || c1 > width - 2 || c2 < 1 || c2 > width - 2) {
             throw new InvalidCommandException("Co-ordinates out of bound");
         }
-        if (r1 < 1 || r1 > h || r2 < 1 || r2 > h) {
+        if (r1 < 1 || r1 > height || r2 < 1 || r2 > height) {
             throw new InvalidCommandException("Co-ordinates out of bound");
         }
 

@@ -6,22 +6,21 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCanvas {
     private Canvas canvas = null;
-    private MainApplication mainApplication = null;
 
     @BeforeAll
     public void setUp() {
-        mainApplication = new MainApplication();
         canvas = new Canvas();
     }
 
     @Test()
     public void testIfCanvasIsHaving2Params() throws InvalidCommandException {
-        List<String> params = mainApplication.extractParams("C");
+        List<String> params = Utils.extractParams("C");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> canvas.validate(params)
@@ -31,7 +30,7 @@ public class TestCanvas {
 
     @Test()
     public void testIfCanvasParamsAreNumbers() throws InvalidCommandException {
-        List<String> params = mainApplication.extractParams("C 20 A");
+        List<String> params = Utils.extractParams("C 20 A");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
                 () -> canvas.validate(params)
@@ -39,16 +38,11 @@ public class TestCanvas {
         assertEquals("Canvas will take 2 parameters of numbers", thrown.getMessage());
     }
 
-    @Test()
-    public void testIfCanvasParamsAreValid() throws InvalidCommandException {
-        List<String> params = mainApplication.extractParams("C 20 4");
-        assertTrue(canvas.validate(params));
-    }
-
     @Test
-    public void testCanvasDraw() {
+    public void testCanvasDraw() throws InvalidCommandException {
+        List<String> params = Utils.extractParams("C 20 4");
         char[][] charArray = new char[6][20];
-        canvas.draw(charArray, 20, 4);
+        canvas.draw(params, charArray, 20, 4);
         assertEquals(charArray[0][0], '-');
         assertEquals(charArray[5][19], '-');
         assertEquals(charArray[1][0], '|');

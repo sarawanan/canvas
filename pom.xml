@@ -44,7 +44,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>com.cs.canvas.MainApplication</mainClass>
+							<mainClass>com.cs.canvas.Application</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
