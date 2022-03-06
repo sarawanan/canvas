@@ -19,7 +19,7 @@ public class TestLine {
     }
 
     @Test()
-    public void testIfLineIsHaving4Params() throws InvalidCommandException {
+    public void testIfLineIsHaving4Params() {
         List<String> params = Utils.extractParams("L");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
@@ -29,7 +29,7 @@ public class TestLine {
     }
 
     @Test()
-    public void testIfLineParamsAreNumbers() throws InvalidCommandException {
+    public void testIfLineParamsAreNumbers() {
         List<String> params = Utils.extractParams("L 1 2 6 A");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
@@ -39,42 +39,46 @@ public class TestLine {
     }
 
     @Test()
-    public void testIfLineColumnsParamsAreOutOfBound() throws InvalidCommandException {
-        char[][] charArray = new char[6][20];
+    public void testIfLineColumnsParamsAreOutOfBound() {
         List<String> params = Utils.extractParams("L 1 2 21 2");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> line.draw(params, charArray, 20, 4)
+                () -> line.draw(params)
         );
         assertEquals("Co-ordinates out of bound", thrown.getMessage());
     }
 
     @Test()
-    public void testIfLineRowsParamsAreOutOfBound() throws InvalidCommandException {
-        char[][] charArray = new char[6][20];
+    public void testIfLineRowsParamsAreOutOfBound() {
         List<String> params = Utils.extractParams("L 4 0 4 5");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> line.draw(params, charArray, 20, 4)
+                () -> line.draw(params)
         );
         assertEquals("Co-ordinates out of bound", thrown.getMessage());
     }
 
     @Test
-    public void testLineDraw() throws InvalidCommandException {
-        char[][] charArray = new char[6][20];
+    public void testLine1Draw() throws InvalidCommandException {
+        Singleton singleton = Singleton.getInstance();
+        singleton.width = 20;
+        singleton.height = 4;
+        singleton.charArray = new char[singleton.height + 2][singleton.width];
+        singleton.fillArray = new char[singleton.height + 2][singleton.width];
+
         List<String> params = Utils.extractParams("L 1 2 6 2");
-        line.draw(params, charArray, 20, 4);
-        assertEquals(charArray[2][1], 'x');
-        assertEquals(charArray[2][6], 'x');
+        line.draw(params);
     }
 
     @Test
-    public void testLineDraw1() throws InvalidCommandException {
-        char[][] charArray = new char[6][20];
+    public void testLine2Draw() throws InvalidCommandException {
+        Singleton singleton = Singleton.getInstance();
+        singleton.width = 20;
+        singleton.height = 4;
+        singleton.charArray = new char[singleton.height + 2][singleton.width];
+        singleton.fillArray = new char[singleton.height + 2][singleton.width];
+
         List<String> params = Utils.extractParams("L 6 3 6 4");
-        line.draw(params, charArray, 20, 4);
-        assertEquals(charArray[3][6], 'x');
-        assertEquals(charArray[4][6], 'x');
+        line.draw(params);
     }
 }

@@ -41,11 +41,6 @@ public class TestCanvas {
     @Test
     public void testCanvasDraw() throws InvalidCommandException {
         List<String> params = Utils.extractParams("C 20 4");
-        char[][] charArray = new char[6][20];
-        canvas.draw(params, charArray, 20, 4);
-        assertEquals(charArray[0][0], '-');
-        assertEquals(charArray[5][19], '-');
-        assertEquals(charArray[1][0], '|');
-        assertEquals(charArray[3][19], '|');
+        canvas.draw(params);
     }
 }

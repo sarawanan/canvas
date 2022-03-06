@@ -3,37 +3,37 @@ package com.cs.canvas;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Fill {
-    public void draw(List<String> params,
-                     char[][] charArray,
-                     int width,
-                     int height,
-                     char[][] fillArray) throws InvalidCommandException {
+public class Fill implements Shape {
+    @Override
+    public String draw(List<String> params) throws InvalidCommandException {
         validate(params);
+        Singleton singleton = Singleton.getInstance();
 
         int c1 = Integer.parseInt(params.get(0));
         int r1 = Integer.parseInt(params.get(1));
 
-        if (c1 < 1 || c1 > width - 2) {
+        if (c1 < 1 || c1 > singleton.width - 2) {
             throw new InvalidCommandException("Co-ordinates out of bound");
         }
-        if (r1 < 1 || r1 > height) {
+        if (r1 < 1 || r1 > singleton.height) {
             throw new InvalidCommandException("Co-ordinates out of bound");
         }
 
         char fill = params.get(2).charAt(0);
-        for (int r = 1; r < height + 1; r++) {
-            for (int c = 1; c < width - 1; c++) {
-                if (charArray[r][c] != 'x') {
-                    if (fillArray[r][c] != '#') {
-                        charArray[r][c] = fill;
+        for (int r = 1; r < singleton.height + 1; r++) {
+            for (int c = 1; c < singleton.width - 1; c++) {
+                if (singleton.charArray[r][c] != 'x') {
+                    if (singleton.fillArray[r][c] != '#') {
+                        singleton.charArray[r][c] = fill;
                     }
                 }
             }
         }
+        return Utils.getCharArrayAsString(singleton.charArray);
     }
 
-    void validate(List<String> params) throws InvalidCommandException {
+    @Override
+    public void validate(List<String> params) throws InvalidCommandException {
         Pattern digits = Pattern.compile("\\d+");
         if (params.size() != 3 || !digits.matcher(params.get(0)).matches()
                 || !digits.matcher(params.get(1)).matches()

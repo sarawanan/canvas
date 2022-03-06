@@ -12,18 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestFill {
     private Fill fill = null;
-    private char[][] charArray = null;
-    private char[][] fillArray = null;
 
     @BeforeAll
     public void setUp() {
         fill = new Fill();
-        charArray = new char[6][20];
-        fillArray = new char[6][20];
     }
 
     @Test()
-    public void testIfFillIsHaving3Params() throws InvalidCommandException {
+    public void testIfFillIsHaving3Params() {
         List<String> params = Utils.extractParams("B");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
@@ -33,7 +29,7 @@ public class TestFill {
     }
 
     @Test()
-    public void testIfFillParamsHave2Numbers() throws InvalidCommandException {
+    public void testIfFillParamsHave2Numbers() {
         List<String> params = Utils.extractParams("B 10 E c");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
@@ -43,7 +39,7 @@ public class TestFill {
     }
 
     @Test()
-    public void testIfFillParamsHave1Char() throws InvalidCommandException {
+    public void testIfFillParamsHave1Char() {
         List<String> params = Utils.extractParams("B 10 3 cc");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
@@ -52,30 +48,35 @@ public class TestFill {
         assertEquals("Solid fill take 2 parameters of numbers and last param of any char", thrown.getMessage());
     }
 
-    @Test
-    public void testFillDraw() throws InvalidCommandException {
-        List<String> params = Utils.extractParams("B 10 3 $");
-        fill.draw(params, charArray, 20, 4, fillArray);
-        assertEquals(charArray[2][2], '$');
-    }
-
     @Test()
-    public void testIfFillColsParamsAreOutOfBound() throws InvalidCommandException {
+    public void testIfFillColsParamsAreOutOfBound() {
         List<String> params = Utils.extractParams("B 20 0 $");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> fill.draw(params, charArray, 20, 4, fillArray)
+                () -> fill.draw(params)
         );
         assertEquals("Co-ordinates out of bound", thrown.getMessage());
     }
 
     @Test()
-    public void testIfFillRowsParamsAreOutOfBound() throws InvalidCommandException {
-        List<String> params = Utils.extractParams("B 10 5 $");
+    public void testIfFillRowsParamsAreOutOfBound() {
+        List<String> params = Utils.extractParams("B 10 7 $");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> fill.draw(params, charArray, 20, 4, fillArray)
+                () -> fill.draw(params)
         );
         assertEquals("Co-ordinates out of bound", thrown.getMessage());
+    }
+
+    @Test
+    public void testFillDraw() throws InvalidCommandException {
+        Singleton singleton = Singleton.getInstance();
+        singleton.width = 20;
+        singleton.height = 4;
+        singleton.charArray = new char[singleton.height + 2][singleton.width];
+        singleton.fillArray = new char[singleton.height + 2][singleton.width];
+
+        List<String> params = Utils.extractParams("B 10 3 c");
+        fill.draw(params);
     }
 }

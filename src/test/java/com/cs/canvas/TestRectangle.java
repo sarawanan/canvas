@@ -19,7 +19,7 @@ public class TestRectangle {
     }
 
     @Test()
-    public void testIfRectangleIsHaving4Params() throws InvalidCommandException {
+    public void testIfRectangleIsHaving4Params() {
         List<String> params = Utils.extractParams("R");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
@@ -29,7 +29,7 @@ public class TestRectangle {
     }
 
     @Test()
-    public void testIfRectangleParamsAreNumbers() throws InvalidCommandException {
+    public void testIfRectangleParamsAreNumbers() {
         List<String> params = Utils.extractParams("R 14 1 18 A");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
@@ -38,37 +38,35 @@ public class TestRectangle {
         assertEquals("Rectangle takes 4 parameters of numbers", thrown.getMessage());
     }
 
-    @Test
-    public void testRectangleDraw() throws InvalidCommandException {
-        char[][] charArray = new char[6][20];
-        char[][] fillArray = new char[6][20];
-        List<String> params = Utils.extractParams("R 14 1 18 3");
-        rectangle.draw(params, charArray, 20, 4, fillArray);
-        assertEquals(charArray[1][13], 'x');
-        assertEquals(charArray[3][17], 'x');
-    }
-
     @Test()
-    public void testIfRectangleColumnsParamsAreOutOfBound() throws InvalidCommandException {
-        char[][] charArray = new char[6][20];
-        char[][] fillArray = new char[6][20];
+    public void testIfRectangleColumnsParamsAreOutOfBound() {
         List<String> params = Utils.extractParams("R 0 2 21 6");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> rectangle.draw(params, charArray, 20, 4, fillArray)
+                () -> rectangle.draw(params)
         );
         assertEquals("Co-ordinates out of bound", thrown.getMessage());
     }
 
     @Test()
-    public void testIfRectangleColumnsParamsAreOutOfBound1() throws InvalidCommandException {
-        char[][] charArray = new char[6][20];
-        char[][] fillArray = new char[6][20];
+    public void testIfRectangleColumnsParamsAreOutOfBound1() {
         List<String> params = Utils.extractParams("R 14 0 18 6");
         InvalidCommandException thrown = assertThrows(
                 InvalidCommandException.class,
-                () -> rectangle.draw(params, charArray, 20, 4, fillArray)
+                () -> rectangle.draw(params)
         );
         assertEquals("Co-ordinates out of bound", thrown.getMessage());
+    }
+
+    @Test
+    public void testRectangleDraw() throws InvalidCommandException {
+        Singleton singleton = Singleton.getInstance();
+        singleton.width = 20;
+        singleton.height = 4;
+        singleton.charArray = new char[singleton.height + 2][singleton.width];
+        singleton.fillArray = new char[singleton.height + 2][singleton.width];
+
+        List<String> params = Utils.extractParams("R 14 1 18 3");
+        rectangle.draw(params);
     }
 }
