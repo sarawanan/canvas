@@ -3,7 +3,7 @@ package com.cs.canvas;
 import java.util.Scanner;
 
 public class Application {
-    public static void main(String[] args) throws InvalidCommandException {
+    public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             do {
                 try {
